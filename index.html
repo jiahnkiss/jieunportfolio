@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>이름 — Editor</title>
+  <title>김지은 — Editor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ─── Tokens ─── */
     :root {
       --ivory:   #F6F1E9;
       --ivory-2: #EDE5D8;
@@ -22,7 +21,6 @@
       --nav-w:   200px;
     }
 
-    /* ─── Reset ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -80,24 +78,17 @@
       transition: width 0.25s;
     }
     .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--burgundy);
-    }
+    .nav-links a.active { color: var(--burgundy); }
     .nav-links a.active::before { width: 28px; }
 
     /* ─── Main Layout ─── */
-    main {
-      margin-left: var(--nav-w);
-      min-height: 100vh;
-    }
+    main { margin-left: var(--nav-w); min-height: 100vh; }
 
-    /* ─── Sections ─── */
     section {
       padding: 6rem 6rem 6rem 5rem;
       border-bottom: 1px solid var(--ivory-2);
     }
 
-    /* ─── Section labels ─── */
     .section-label {
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.72rem;
@@ -106,8 +97,6 @@
       color: var(--pink);
       margin-bottom: 2.5rem;
     }
-
-    /* ─── Section headings ─── */
     .section-heading {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(1.8rem, 3.5vw, 2.8rem);
@@ -179,14 +168,6 @@
       gap: 4rem;
       align-items: start;
     }
-    .about-heading {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 300;
-      color: var(--brown-2);
-      line-height: 1.2;
-      margin-bottom: 2rem;
-    }
     .about-body {
       font-size: 0.9rem;
       font-weight: 300;
@@ -198,7 +179,6 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      margin-top: 1rem;
     }
     .keyword-item {
       padding: 1rem 1.4rem;
@@ -253,14 +233,20 @@
       font-size: 0.72rem;
       letter-spacing: 0.2em;
       color: var(--pink);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem;
     }
     .book-title {
       font-size: 1.3rem;
       font-weight: 400;
       color: var(--brown-2);
       line-height: 1.4;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.3rem;
+    }
+    .book-author {
+      font-size: 0.84rem;
+      font-weight: 300;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
     }
     .book-meta {
       font-size: 0.78rem;
@@ -274,6 +260,18 @@
       color: var(--brown);
       line-height: 1.9;
     }
+    .book-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--burgundy);
+      text-decoration: none;
+      border-bottom: 1px solid var(--pink-2);
+      padding-bottom: 0.15rem;
+      transition: border-color 0.2s;
+    }
+    .book-link:hover { border-color: var(--burgundy); }
 
     /* 보도자료 */
     .press-release {
@@ -296,10 +294,16 @@
       column-gap: 2.5rem;
       column-rule: 1px solid var(--pink-2);
     }
-    .press-placeholder {
-      color: var(--pink);
-      font-size: 0.78rem;
+    .press-body p + p { margin-top: 1em; }
+    .press-body strong {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--burgundy);
+      margin: 1.4em 0 0.4em;
+      font-weight: 500;
     }
+    .press-placeholder { color: var(--pink); }
 
     /* ─── Writing ─── */
     #writing { background: var(--ivory-2); }
@@ -425,15 +429,11 @@
     /* ─── Mobile ─── */
     @media (max-width: 768px) {
       nav {
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        align-items: center;
+        width: 100%; height: auto;
+        flex-direction: row; align-items: center;
         padding: 1.2rem 1.5rem;
-        border-right: none;
-        border-bottom: 1px solid var(--ivory-2);
-        position: sticky;
-        top: 0;
+        border-right: none; border-bottom: 1px solid var(--ivory-2);
+        position: sticky; top: 0;
       }
       .nav-links { flex-direction: row; gap: 1rem; }
       .nav-links a { font-size: 0.7rem; }
@@ -442,9 +442,7 @@
       section { padding: 4rem 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .book-header { grid-template-columns: 100px 1fr; gap: 1.5rem; }
-      .press-body { column-count: 1; }
-      .writing-body { column-count: 1; }
-      .project-body { column-count: 1; }
+      .press-body, .writing-body, .project-body { column-count: 1; }
     }
   </style>
 </head>
@@ -524,74 +522,107 @@
       <p class="section-label">Book Editing</p>
       <h2 class="section-heading">책 편집</h2>
 
+      <!-- 01 한옥의 담 -->
       <div class="book-entry">
         <div class="book-header">
           <div class="book-cover">cover</div>
           <div class="book-info">
             <p class="book-num">01</p>
-            <p class="book-title">책 제목이 들어갈 자리</p>
-            <p class="book-meta">출판사 · 2024</p>
-            <p class="book-desc">책에 대한 짧은 소개 문장이 들어갑니다. 어떤 책인지, 편집자로서 어떤 역할을 했는지를 담아주세요.</p>
+            <p class="book-title">한옥의 담</p>
+            <p class="book-author">차장섭</p>
+            <p class="book-meta">열화당 · 2024.10.25</p>
+            <p class="book-desc">영문 원고가 함께 있는 원고였기에 영문 교정교열을 국문과 함께 진행했으며, 사진 셀렉과 순서 배치를 디자이너와 함께 고민하며 적극적으로 의견을 냈고, 궁극적으로 책의 완성도를 높일 수 있었습니다.</p>
+            <a class="book-link" href="http://youlhwadang.co.kr/book/6622/" target="_blank">공식 페이지 →</a>
           </div>
         </div>
         <div class="press-release">
           <p class="press-label">보도자료</p>
           <div class="press-body">
-            <p class="press-placeholder">보도자료 전문이 여기에 들어갑니다. 출판사에서 제공한 보도자료 원문을 붙여넣으면 2단으로 자동 배치됩니다. 내용이 많을수록 잡지처럼 자연스럽게 단이 나뉩니다.</p>
+            <p>역사학자 차장섭은 한옥의 미를 재인식하고 한옥의 원형을 역사 속에 보전하기 위해, 세월과 무관심에 사라져 가는 전국의 고택들을 촬영해 왔다. 『한옥의 벽』(2016)은 그 첫번째 작업을 모은 책으로, 한옥 벽이 갖는 비대칭, 자유로운 면 분할, 그리고 여백의 미학 등을 선보였다. 두번째 작업을 모은 『한옥의 천장』(2019)에서는 저자가 한옥이라는 공간에 직접 누워 가며 천장이 가진 한 폭의 수묵화 같은 곡선의 미를 담아냈다.</p>
+            <p>이번에 출간된 『한옥의 담』은 그 세번째 권으로, 『한옥의 천장』이 나오고 5년 만의 사진집이자 연작의 마지막 작업이다. 2015년부터 2024년 현재까지 전국을 돌아다니며 다양한 시선과 구도로 찍은 한옥의 '담'들이 수록되어 있는데, 저자만의 시각에서 네 가지 기준으로 나누어 배치함으로써 그 특징을 잘 드러내고자 했다. 경복궁, 양양 낙산사, 서귀포 성읍마을, 남양주 여경구 가옥, 경주 귀래정, 현풍 도동서원 등 재료와 구조, 생김새와 제작 방식이 다양한 58개 고택을 엄선해 80점의 사진으로 담았다. 가로로 긴 형태를 지닌 담의 특성을 잘 보여주기 위해 스프레드로 편집된 지면이 많아졌고, 미니멀한 분위기의 벽과 천장에 비해 담장이 지닌 재료와 무늬의 다채로움이 돋보인다.</p>
+            <p><strong>무기교의 기교, 순수하고 소박한 멋</strong></p>
+            <p>한옥의 담은 우리 전통의 미적 감각과 향토적 서정성이 고스란히 담겨 있는 문화유산이다. 주변에 널린 손쉬운 재료로 아무렇게나 쌓은 듯해도 각자의 방식과 구성을 갖추고 있으며, 자연미와 전통미가 빼어나 고향의 푸근함을 느낄 수 있다. 특히 장인의 손길에 의한 것이 아니라, 마을 주민들이 직접 만들고 세대를 이어 덧붙여 온 것이라 의미가 깊다. 제주도에는 여전히 대를 이어 돌담 쌓는 일을 하는 '돌챙이'가 존재하는데, 그들이 선대로부터 배운 것은 돌을 보기 좋게 쌓는 요령이나 편법이 아니라 튼튼하게 쌓는 방법이었다. 이렇게 우리네 담장은 민화처럼 무기교가 지닌 기교를 고수하면서 순수하고 소박한 멋을 지켜 오고 있다. 차장섭이 담을 촬영하고 '한옥의 담'을 구상한 과정도 이와 맥을 같이한다고 볼 수 있다. 그는 고택의 수문장 같았던 담장이 무너지며 집과 그 안에 살던 사람들까지 사라져 가는 현실을 깨닫고, 한옥의 원형과 그에 내재된 아름다움을 지키기 위해 전국의 고택들을 찾아다녔다. 그리고 그 특질이 잘 드러난 사진들을 마치 담을 쌓듯이 세심하게 골라내 잇고 쌓고 다졌다.</p>
+            <p>담은 집과 그곳에서 살아가는 사람을 보호하는 동시에, 집이라는 공간을 무한대로 확장하는 특징을 갖고 있다. 외부와의 경계를 통해 안락함을 제공하는 한편, 외부 풍경을 차경(借景)이라는 이름으로 집 안으로 끌어들여 개방성을 부여하기도 하는 것이다. 또한 담은 쉽게 구할 수 있는 그 지역의 재료들, 자투리들을 활용해 만들어지며 내부 환경과 잘 어우러지기 위해 집을 짓는 공정 가운데 가장 마지막 순서를 이룬다. 그러나 한옥의 담을 건축물의 부속물이 아닌 독립적인 개체로 인식한 지는 얼마 되지 않았다. 아름다움을 재인식하면서 경남 고성의 학동마을, 충남 부여의 반교마을 등의 옛 담장이 국가등록문화유산으로 지정되었지만, 대부분의 사람들이 획일적이고 폐쇄적인 공동주택에 거주하는 오늘날, 한옥의 담이 지녔던 자유분방한 표정과 상징성은 찾아보기 어려워졌다. 이 책에 모인 옛 담장들을 새롭게 마주함으로써, 그동안 잊고 있던 한국 고유의 정서를 되새기는 기회가 되길 기대한다. 더불어 비로소 완결된 연작을 전작들과 함께 감상한다면, 한옥의 아름다움을 다양한 시점에서 바라볼 수 있을 것이다.</p>
+            <p><strong>점에서부터 우주까지</strong></p>
+            <p>한국의 전통건축에서는 사람을 소우주, 자연을 대우주라 하고, 이 둘을 연결하는 동시에 이들과 하나 되는 집을 중우주라고 한다. 대우주와 소우주, 그리고 중우주를 각자 존재하는 것이 아닌 하나의 우주를 구성하는 요소라고 인식하는 것이다. 차장섭은 이 우주 속의 하늘과 땅, 그리고 사람을 모든 사물의 본질을 이루는 하나의 '점'으로 바라본다. 이 하늘과 땅 사이에서 세월이 쌓이고 사람들이 살아가며 생로병사의 인생이 만들어진다. 이처럼 고요 속의 점 하나에서 새로운 우주가 탄생하듯, 저자가 바라보는 한옥의 담 역시 하나의 점에서 시작되어 우주에 이르는 것이었다. 차장섭은 한옥의 담을 관조하는 방법을 자아, 소통, 원융, 우주의 4단계로 나누면서 그 개념을 풀어 간다. 사진들 또한 이 단계에 따라 크게 4개의 파트로 구분할 수 있다. 파트별로 이를 돕는 문장들이 왼쪽 면에 수록되어 작품 설명으로서 기능하기도 한다.</p>
+            <p>가장 먼저 '자아(自我)'에 해당하는 사진들(pp.19-43)에서는 집집마다 다른 모습을 가진 담의 개성있는 모습을 보여준다. 한옥의 담에는 지역적 특성, 사회적 지위 등이 반영되어 있으며, 역사성도 투영되어 있다. 경복궁(pp.22-23)과 같은 왕실 궁궐의 담, 봉화 수온당고택(p.29)과 같은 기와집의 담, 남원 덕치리 초가(p.40)의 담이 같을 수 없는 까닭이다. 가까이에서 구할 수 있는 돌, 흙, 기와, 나무, 짚 등을 사용해야 했으니 자연히 나온 특징있는 형태인 것이다.</p>
+            <p>두번째 '소통(疏通)'의 사진들(pp.45-73)로는 개방성과 폐쇄성 모두를 갖춘 담의 모습을 만날 수 있다. 괴산 김향묵 고택(p.49)의 담은 집을 완전히 가리지 않는 높이를 가졌는데, 이는 집을 지킨다는 담의 일차적 기능을 살리면서도 이웃 간 소통을 가능하게 한다. 담의 높이뿐 아니라 형태 역시 소통의 창구를 만들 수 있는데, 그중 밀양 교동 손씨고가(p.57)의 경우 담에 기왓장으로 낸 구멍이 그 역할을 한다. 또한 익산 함라마을(p.72)과 강릉 여찬리마을(p.73)의 담들을 비롯한 여러 경우에 닳고 무너지고 붕괴된 부분을 현대에 와서 수리함으로써, 각기 다른 시간 속 재료가 하나의 담을 이룬 모습을 볼 수 있다. 담을 보수하고자 예전에 쓰이지 않았던 재료들을 사용해 형태를 복원하고 그 기능을 되살리는 것은 과거의 담이 현재성을 안고 다시 미래로 나아가게끔 하는 것이다. 이 과정은 한옥 담장의 아름다움을 재인식하고 그것을 쌓아 올린 사람들의 지혜를 이해하는 계기가 되어 준다. 이렇게 과거의 담은 현재를 만나 미래가 된다.</p>
+            <p>세번째 단계인 '원융(圓融)'에 속한 사진들(pp.75-101)에서는 개별 사물들이 서로 개성을 존중하고 널리 융통하여 하나 되는, 완전한 미를 볼 수 있다. 사물들은 각자 자신을 희생하고 가라앉혀 모두와의 균형을 맞춘다. 차장섭은 장수 정상윤 가옥(p.97)처럼 서로 다른 재료가 함께 어우러져 하나의 담을 이룬 모습이나, 안동 조탑리마을(p.91)처럼 하나의 담 안에 여러 가지 개성적인 패턴이 함께 배치된 담의 예시를 통해 원융이라는 성질을 표현했다.</p>
+            <p>하늘과 땅인 '우주(宇宙)'를 연결하는 담의 모습을 담아낸 마지막 사진들에는 우리가 살아가는 세상의 많은 요소들과 사물들을 연상시키는 모티프들(pp.103-139)이 담겨 있다. 자연을 닮은 그 형상들은 꽃의 형태를 보이기도 물결의 모양을 연상시키기도 한다. 이러한 인간이 사는 땅과 인간이 소망하는 이상향인 하늘은 담으로 연결된다. 이들이 만나 하나가 된 모습이 청도 운문사(p.119)의 담을 비롯한 사진들에 담겼다. 담은 둘을 연결하는 동시에 우주 속 점들이 모여 만든 '우주 속의 또 다른 우주'가 되어 이들과 하나를 이룬다.</p>
+            <p>글 전문을 영문으로 번역해 함께 수록하여 외국 독자들이 사진과 함께 한옥의 아름다움과 담의 특징을 더 구체적으로 이해할 수 있게 했다. 이번 사진집 출간에 맞춰 차장섭 개인전 「韓屋의 담」이 강릉아트센터에서 2024년 10월 29일부터 11월 3일까지 열린다.</p>
           </div>
         </div>
       </div>
 
+      <!-- 02 무인도 -->
       <div class="book-entry">
         <div class="book-header">
           <div class="book-cover">cover</div>
           <div class="book-info">
             <p class="book-num">02</p>
-            <p class="book-title">책 제목이 들어갈 자리</p>
-            <p class="book-meta">출판사 · 2024</p>
-            <p class="book-desc">책에 대한 짧은 소개 문장이 들어갑니다. 어떤 책인지, 편집자로서 어떤 역할을 했는지를 담아주세요.</p>
+            <p class="book-title">무인도</p>
+            <p class="book-author">강홍구</p>
+            <p class="book-meta">열화당 · 2024.12.20</p>
+            <p class="book-desc">원고가 있는 지면에 흑백으로 이미지를 작게 삽입한 뒤 뒤쪽에 아트지에 인쇄한 고퀄리티의 컬러화보를 크게 넣어 독자가 페이지를 직접 오가며 책의 물성을 감각할 수 있도록 기획했습니다.</p>
+            <a class="book-link" href="http://youlhwadang.co.kr/book/6646/" target="_blank">공식 페이지 →</a>
           </div>
         </div>
         <div class="press-release">
           <p class="press-label">보도자료</p>
           <div class="press-body">
-            <p class="press-placeholder">보도자료 전문이 여기에 들어갑니다. 출판사에서 제공한 보도자료 원문을 붙여넣으면 2단으로 자동 배치됩니다. 내용이 많을수록 잡지처럼 자연스럽게 단이 나뉩니다.</p>
+            <p>미술가 강홍구는 디지털 사진을 매체로 재개발 구역과 도시 공간, 작가의 고향인 전라남도 신안군 등에 관한 다양한 작업을 해 왔다. 신안군에는 1,025개의 섬이 있고, 변화가 있기는 하지만 그중 953곳이 무인도다. 작가는 2005년 무렵부터 약 이십 년 동안 신안군의 수많은 무인도 사진을 찍어 왔다. '무인도' 연작은 그 사진들 위에 아크릴로 여러 대상을 그려 넣은 것으로, 2022년부터 시작되어 현재까지 약 150점이 제작되었다. 이번에 출간된 『무인도』는 그중 40점을 골라 그에 알맞은 글과 함께 엮은 그림 산문집으로, 그의 작업 세계에 바탕이 된 이야기와 추억을 엿볼 수 있다.</p>
+            <p>무인도 위에는 짜장면, 빨랫감, 연필, 눈사람 등의 뜻밖의 대상들이 비현실적으로 섬에 비해 큼직하게 놓여 있다. 이들은 강홍구에게 '꿈의 장소'인 무인도에 관한 몽상적 표현일 뿐 아니라 그가 세상을 살아온 경험과 욕망, 때로는 마음속 깊이 자리한 무의식의 발현이기도 하다. 무인도란 눈앞의 현실이자 몽상의 대상이라는 메시지가 책 곳곳에 자리잡고 있으며, 이는 '무인도' 연작과 글 모두에서 드러난다. 섬 소년의 성장기부터 대학과 교직 생활 중 겪었던 일, 미술가가 되기까지의 궤적, 세상과 미술계에 던지는 사유와 목소리 등이 솔직담백하고 생생하게 기록되어 있어, 그가 들려주는 꿈같은 이야기 속으로 점차 빠져들게 된다.</p>
+            <p><strong>섬 소년, 기억 속 무인도를 오가며</strong></p>
+            <p>책을 펼치면, 글과 그림이 함께 흐르지 않고 서로 분리되어 있는 것을 발견하게 된다. 먼저 에세이에 해당하는 '무인도—글'이 나오는데, 각 글 끝에 일종의 섬네일처럼 해당 작품을 흑백으로 작게 넣고 그 아래 원색 도판이 인쇄된 페이지 번호를 표시했다. 컬러 화보를 '무인도—작품'으로 모아 뒤쪽에 별도 배치한 이러한 방식은, 글에서 작품으로, 작품에서 글로 독자가 '이동'해 가야만 하는 낯선 읽기를 유도한다. 다소 번거로운 이같은 독서 행위를 통해, 독자들은 책이라는 물성 안에서 작가가 신안 바다의 이 섬 저 섬을 오갔던 거리, 대상들을 찍었을 때의 시간을 간접적으로나마 감각할 수 있게 된다. 마치 납작한 지면 위에 삼차원의 무인도가 펼쳐지고 작가가 풀어내는 풍성한 이야기에 접속되듯이 말이다. 더불어, '무인도' 연작은 아니지만 작가가 직접 그린 〈신안전도〉를 함께 수록하고 '작품 목록'에 섬이 위치한 지리 정보를 밝힘으로써, 이 무인도들이 꿈의 장소이자 동시에 현실에 존재하는 공간임을 암시한다.</p>
+            <p>글은 자유롭고 분방하게 흐르지만, 크게는 섬에서 보낸 어린 시절 이야기와, 미술로 밥을 먹고 사는 작가가 되면서 겪은 이야기가 중심을 이룬다. 소풍날이 하필 모내기를 하는 날이라 집에서 아무도 밥을 챙겨 주지 않아 혼자 찌그러진 양재기에 담긴 팥밥을 싸 들고 가서 먹고, 밀가루를 처음 먹어 보고 그 맛에 놀라워했으며, 장날에 갔다가 배를 놓친 사람들이 무인도에 봉화를 켜고 기다리던 모습을 목격하기도 했다. 지금은 목포에서 세 시간이면 갈 수 있는 만재도에 여섯 시간 넘게 걸려 가야만 했던 시절이다. 당시 섬에서 쓰던 삘기, 껄떼기와 같은 방언을 곳곳에 그대로 사용해 향토적 분위기를 풍기는 문장들은, 어린 시절 그가 섬 소년으로 자랐던 추억들을 세세하게 전해 준다.</p>
+            <p>석유 등잔불이 발전기를 사용한 전등이 되고, 전등이 전깃불이 되었다. 이 급격한 현대화의 시간을 거쳐 디지털 매체로 작업을 하는 작가가 된 강홍구는 '무인도' 연작으로 지금은 사라져 버린 것들을 다시 여기로 가져온다. 기억 저편의 흩어진 조각들을 꺼내고 모아 새로운 형태로 만들어내는 이같은 행위는, 그것이 한갓 사적 노스탤지어에 머물지 않고 다른 이들에게도 작은 울림과 발견이 되어 주기 바라는 예술가의 소박한 몸짓이다. 섬을 떠나 교육 대학과 미술 대학에 진학하고, 수십 번 이사를 다니고, 어머니의 죽음을 겪는 등 성인이 되어 살면서 마주한 것들에 대한 이야기 역시 진솔하고 담담하게, 한편으로는 유머러스하고 경쾌하게 털어놓는다. 선도를 대표하는 수선화, 학교 운동장의 동상들, 피아노, 배추, 지게…. 작품 속 그림들은 일차적으로 작가의 개인적 기억과 연결되지만, 우리들 역시 각자의 기억 속 사물과 사연들을 하나씩 꺼내 떠올려 보게 된다.</p>
+            <p><strong>미술로 먹고살기, 작가로 살아남기</strong></p>
+            <p>이 책에는 예술적 열정과 노력으로 미술을 공부하고 작업해 온 미술가들의 이야기가 작가 자신의 사연과 함께 담겨 있다. 강홍구는 예술가로서 갖춰야 할 중요한 재능을 말하며 '지속성'과 '열정'을 꼽는다. 「바다의 색깔」에서 뭔가를 표현하려는 욕망과 좌절 사이를 끊임없이 오가는 작가로서의 고민을 엿볼 수 있는데, 그는 "바다의 색을 내 눈에 보이는 그대로 물감으로 표현하거나 사진을 찍어내는 것은 가능할까?" 묻고는 이내 "당연히 불가능하다"며 자신은 그저 그 색깔 언저리를 얼쩡거릴 뿐이라고 말한다. 하지만 이러한 좌절감이 작업을 하는 동력이 되는 작가의 아이러니한 운명을 받아들이고, 적절한 표현 방식을 찾는 자신을 바다를 응시하는 그림 속 황새에 빗대어 글을 끝맺는다.</p>
+            <p>미술가가 되고 나서도 그 여정은 이렇듯 실패와 번민의 연속이었는데, 작가가 되기까지의 길 역시도 험난했다. 유화 그림을 그리고 싶어 외상으로 도구를 사서 부려놓았지만 차마 집에 연락하지 못해 풀밭에서 흐느끼던 시절이 있었다. 목탄을 써 보고 싶어 나뭇가지를 직접 구워 쓰기도 했다. 비록 순탄하지는 않았으나 미술은 거부할 수 없이 그의 삶 속에 점차 스며들었고, 염판에 그림을 그리던 소년은 어느새 자신만의 세계를 공고히 형성한 미술가로 성장했다.</p>
+            <p>"빈 캔버스를 이젤 위에 올려놓고 바라볼 때의 막막함은 화가라면 누구나 느끼는 일이다. 막연한 가능성은 있어 보이지만 어떤 결과물이 나올지 알 수 없는 기대와 두려움은 습작생 시절에도, 작가로 살아가면서도 늘 겪는다. 내 경우도 그렇다. 화가나 미술가로 살겠다고 결심하고 시작하지는 않았다. 어쩌다 보니 작가가 되었고 작업으로 밥을 먹고 살게 되었다. 어찌 보면 운명이고 달리 보면 선택의 연속이 만들어낸 결과이다." —「그림의 시작」 중에서</p>
+            <p>그는 미술가로서 쌓아 온 경험을 바탕으로 세상을 바라본다. 작가로 성공하는 것에 대해 "단지 나이가 들어 가면서도 할 이야기가 있고, 나름의 방법으로 꾸준히 작업을 할 수 있다면 충분하다"고 말한다. 세잔, 겸재, 렘브란트, 단원, 수화 등의 작가처럼 말이다. 여기서 그가 말하는 '꾸준함'의 태도를 읽게 된다. 바로 자기만의 시각을 견지하고 적절한 속도를 유지하며 계속 나아가는 일이다. 그러기 위해서는 작가가 강조하듯이 "자신이 무엇을 하고 있는지에 관한 객관적인 좌표를 그릴 수 있어야" 한다.</p>
+            <p>강홍구는 "개인적인 것 이상의 무엇이 있느냐고 묻는다면 별 할 말이 없다. 다만 내가 이야기하지 않고 써 두지 않으면 그냥 묻힐 것들을 다른 사람들도 읽어 볼 수 있도록 했다는 것이 의미가 있을까?"라고 털어놓는다. 그의 추억들을 묻어 두지 않고 풀어놓고 공유함으로써, 지칠 때 찾아가 몽상하며 쉴 수 있는 무인도라는 공간을 내주었다. 그가 이 책을 쓴 것은 자기 자신에게 그곳이 필요했기 때문이기도 하지만, 무엇보다도 우리에게 알려 주려고 한 것이다. 누구나 마음속에 무인도가 하나씩 필요한 시절이니, 저마다의 무인도를 찾아가 마음의 짐을 내려놓고 "바다에 누워 송장헤엄을 치면서" 그 몽상의 섬을 바라보자고. 편안한 마음으로 바위 그늘에 누워 한잠 자고 와도 된다고.</p>
           </div>
         </div>
       </div>
 
+      <!-- 03 나는 갈 곳이 없었다 -->
       <div class="book-entry">
         <div class="book-header">
           <div class="book-cover">cover</div>
           <div class="book-info">
             <p class="book-num">03</p>
-            <p class="book-title">책 제목이 들어갈 자리</p>
-            <p class="book-meta">출판사 · 2023</p>
-            <p class="book-desc">책에 대한 짧은 소개 문장이 들어갑니다. 어떤 책인지, 편집자로서 어떤 역할을 했는지를 담아주세요.</p>
+            <p class="book-title">나는 갈 곳이 없었다</p>
+            <p class="book-author">요나스 메카스</p>
+            <p class="book-meta">열화당 · 2026.03.20</p>
+            <p class="book-desc">원고 특성상 해제가 붙으면 좋겠다고 판단하여 필진 후보를 추린 후, 그중 국내에서 저자 요나스 메카스에 대한 이해도가 가장 높다고 판단되는 김지훈 교수에게 컨택해 섭외에 성공했습니다.</p>
+            <a class="book-link" href="http://youlhwadang.co.kr/book/6762/" target="_blank">공식 페이지 →</a>
           </div>
         </div>
         <div class="press-release">
           <p class="press-label">보도자료</p>
           <div class="press-body">
-            <p class="press-placeholder">보도자료 전문이 여기에 들어갑니다. 출판사에서 제공한 보도자료 원문을 붙여넣으면 2단으로 자동 배치됩니다. 내용이 많을수록 잡지처럼 자연스럽게 단이 나뉩니다.</p>
+            <p class="press-placeholder">보도자료가 추가될 예정입니다.</p>
           </div>
         </div>
       </div>
 
+      <!-- 04 placeholder -->
       <div class="book-entry">
         <div class="book-header">
           <div class="book-cover">cover</div>
           <div class="book-info">
             <p class="book-num">04</p>
             <p class="book-title">책 제목이 들어갈 자리</p>
-            <p class="book-meta">출판사 · 2023</p>
+            <p class="book-author">저자명</p>
+            <p class="book-meta">출판사 · 연도</p>
             <p class="book-desc">책에 대한 짧은 소개 문장이 들어갑니다. 어떤 책인지, 편집자로서 어떤 역할을 했는지를 담아주세요.</p>
           </div>
         </div>
         <div class="press-release">
           <p class="press-label">보도자료</p>
           <div class="press-body">
-            <p class="press-placeholder">보도자료 전문이 여기에 들어갑니다. 출판사에서 제공한 보도자료 원문을 붙여넣으면 2단으로 자동 배치됩니다. 내용이 많을수록 잡지처럼 자연스럽게 단이 나뉩니다.</p>
+            <p class="press-placeholder">보도자료 전문이 여기에 들어갑니다.</p>
           </div>
         </div>
       </div>
