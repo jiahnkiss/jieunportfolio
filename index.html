@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이름 — Editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Tokens ─── */
+    :root {
+      --ivory:   #F6F1E9;
+      --ivory-2: #EDE5D8;
+      --brown:   #6B4C3B;
+      --brown-2: #4A3229;
+      --pink:    #C9A8A0;
+      --pink-2:  #E0C9C4;
+      --burgundy:#8B2D42;
+      --text:    #3A2820;
+      --muted:   #9C8278;
+      --nav-w:   200px;
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Serif KR', 'Cormorant Garamond', serif;
+      background: var(--ivory);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    /* ─── Side Nav ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--nav-w);
+      height: 100vh;
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 100;
+      background: var(--ivory);
+      border-right: 1px solid var(--ivory-2);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--brown);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      transition: color 0.25s;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .nav-links a::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.25s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--burgundy);
+    }
+    .nav-links a.active::before { width: 28px; }
+    .nav-footer {
+      font-size: 0.68rem;
+      color: var(--pink);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── Main Layout ─── */
+    main {
+      margin-left: var(--nav-w);
+      min-height: 100vh;
+    }
+
+    /* ─── Sections ─── */
+    section {
+      min-height: 100vh;
+      padding: 6rem 6rem 6rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid var(--ivory-2);
+    }
+
+    /* ─── Section labels ─── */
+    .section-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── Hero ─── */
+    #hero {
+      background: var(--ivory);
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -120px; right: -80px;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: var(--pink-2);
+      opacity: 0.25;
+      pointer-events: none;
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.1;
+      color: var(--brown-2);
+      margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--burgundy);
+      margin-bottom: 2.5rem;
+    }
+    .hero-intro {
+      max-width: 480px;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--brown);
+      line-height: 2;
+      margin-bottom: 3rem;
+    }
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 2.4rem;
+    }
+    .contact-item {
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .contact-item:hover { color: var(--burgundy); }
+    .contact-item .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--pink);
+      flex-shrink: 0;
+    }
+
+    /* ─── About ─── */
+    #about { background: var(--ivory-2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--brown-2);
+      line-height: 1.2;
+      margin-bottom: 2rem;
+    }
+    .about-body {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--brown);
+      line-height: 2.1;
+    }
+    .about-body p + p { margin-top: 1.2em; }
+    .keyword-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .keyword-item {
+      padding: 1rem 1.4rem;
+      border-left: 2px solid var(--pink);
+      background: var(--ivory);
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--brown);
+      line-height: 1.7;
+    }
+    .keyword-item strong {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+    }
+
+    /* ─── Books (책 편집) ─── */
+    #books { background: var(--ivory); }
+    .section-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--brown-2);
+      margin-bottom: 3rem;
+      line-height: 1.2;
+    }
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .book-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .book-cover {
+      aspect-ratio: 2/3;
+      background: var(--ivory-2);
+      border: 1px solid var(--pink-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pink);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .book-card:hover .book-cover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(107,76,59,0.1);
+    }
+    .book-title {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--brown);
+      line-height: 1.5;
+    }
+    .book-meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── Writing (글들) ─── */
+    #writing { background: var(--ivory-2); }
+    .writing-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .writing-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--ivory);
+      text-decoration: none;
+      color: inherit;
+      transition: padding-left 0.25s;
+    }
+    .writing-item:hover { padding-left: 0.8rem; }
+    .writing-title {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--brown);
+      line-height: 1.6;
+    }
+    .writing-item:hover .writing-title { color: var(--burgundy); }
+    .writing-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      white-space: nowrap;
+    }
+    .writing-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ─── Projects ─── */
+    #projects { background: var(--ivory); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .project-card {
+      padding: 2rem 2rem 2rem 2rem;
+      border: 1px solid var(--ivory-2);
+      background: var(--ivory);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--pink-2);
+      transition: background 0.3s;
+    }
+    .project-card:hover { border-color: var(--pink); }
+    .project-card:hover::before { background: var(--burgundy); }
+    .project-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--pink-2);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--brown-2);
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+    }
+    .project-desc {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--brown);
+      line-height: 1.9;
+    }
+    .project-tags {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      border: 1px solid var(--pink-2);
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+    }
+
+    /* ─── Scroll indicator ─── */
+    .scroll-line {
+      position: fixed;
+      top: 0; left: 0;
+      width: 2px;
+      background: var(--burgundy);
+      opacity: 0.5;
+      z-index: 200;
+      transition: height 0.1s linear;
+    }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 768px) {
+      nav {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        align-items: center;
+        padding: 1.2rem 1.5rem;
+        border-right: none;
+        border-bottom: 1px solid var(--ivory-2);
+        position: sticky;
+        top: 0;
+      }
+      .nav-links {
+        flex-direction: row;
+        gap: 1rem;
+      }
+      .nav-links a { font-size: 0.7rem; }
+      .nav-links a::before { display: none; }
+      .nav-footer { display: none; }
+      main { margin-left: 0; }
+      section { padding: 4rem 1.5rem; min-height: auto; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll progress line -->
+  <div class="scroll-line" id="scrollLine"></div>
+
+  <!-- Side Navigation -->
+  <nav>
+    <a class="nav-logo" href="#hero">Portfolio</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero"    data-target="hero">Intro</a></li>
+      <li><a href="#about"   data-target="about">About</a></li>
+      <li><a href="#books"   data-target="books">책 편집</a></li>
+      <li><a href="#writing" data-target="writing">글들</a></li>
+      <li><a href="#projects"data-target="projects">프로젝트</a></li>
+    </ul>
+    <p class="nav-footer">Editor &amp; Content</p>
+  </nav>
+
+  <main>
+
+    <!-- 1. Intro + Contact -->
+    <section id="hero">
+      <p class="section-label">Introduction</p>
+      <h1 class="hero-name">이름</h1>
+      <p class="hero-title">Editor · Content Editor</p>
+      <p class="hero-intro">
+        한 줄 소개 문장이 들어갈 자리입니다.<br/>
+        어떤 일을 하는 사람인지, 어떤 가치를 담아 일하는지를<br/>
+        짧고 단단하게 담아주세요.
+      </p>
+      <div class="contact-row">
+        <a class="contact-item" href="mailto:email@example.com">
+          <span class="dot"></span> email@example.com
+        </a>
+        <a class="contact-item" href="#">
+          <span class="dot"></span> instagram
+        </a>
+        <a class="contact-item" href="#">
+          <span class="dot"></span> blog
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. About -->
+    <section id="about">
+      <p class="section-label">About</p>
+      <div class="about-grid">
+        <div>
+          <h2 class="about-heading">어떤 사람인지<br/>소개하는 공간</h2>
+          <div class="about-body">
+            <p>자신을 소개하는 글이 들어갈 자리입니다. 어떤 계기로 이 일을 시작했는지, 어떤 방식으로 일하는지, 어떤 태도를 가지고 있는지를 담아주세요.</p>
+            <p>두 번째 문단은 좀 더 구체적인 이야기나 편집 철학, 작업 방식에 대한 이야기를 담을 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="keyword-list">
+          <div class="keyword-item">
+            <strong>Education</strong>
+            학교명 / 학과 / 졸업연도
+          </div>
+          <div class="keyword-item">
+            <strong>Experience</strong>
+            경력 또는 활동 내용
+          </div>
+          <div class="keyword-item">
+            <strong>Interest</strong>
+            관심 분야, 키워드, 좋아하는 것들
+          </div>
+          <div class="keyword-item">
+            <strong>Tools</strong>
+            InDesign · Photoshop · Notion · 기타
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 책 편집 -->
+    <section id="books">
+      <p class="section-label">Book Editing</p>
+      <h2 class="section-heading">책 편집</h2>
+      <div class="books-grid">
+        <!-- 카드 6개 예시 -->
+        <div class="book-card">
+          <div class="book-cover">cover</div>
+          <p class="book-title">책 제목이 들어갈 자리</p>
+          <p class="book-meta">출판사 · 2024</p>
+        </div>
+        <div class="book-card">
+          <div class="book-cover">cover</div>
+          <p class="book-title">책 제목이 들어갈 자리</p>
+          <p class="book-meta">출판사 · 2024</p>
+        </div>
+        <div class="book-card">
+          <div class="book-cover">cover</div>
+          <p class="book-title">책 제목이 들어갈 자리</p>
+          <p class="book-meta">출판사 · 2023</p>
+        </div>
+        <div class="book-card">
+          <div class="book-cover">cover</div>
+          <p class="book-title">책 제목이 들어갈 자리</p>
+          <p class="book-meta">출판사 · 2023</p>
+        </div>
+        <div class="book-card">
+          <div class="book-cover">cover</div>
+          <p class="book-title">책 제목이 들어갈 자리</p>
+          <p class="book-meta">출판사 · 2022</p>
+        </div>
+        <div class="book-card">
+          <div class="book-cover">cover</div>
+          <p class="book-title">책 제목이 들어갈 자리</p>
+          <p class="book-meta">출판사 · 2022</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 글들 -->
+    <section id="writing">
+      <p class="section-label">Writing</p>
+      <h2 class="section-heading">글들</h2>
+      <div class="writing-list">
+        <a class="writing-item" href="#">
+          <div>
+            <p class="writing-title">글 제목이 들어갈 자리입니다</p>
+            <p class="writing-sub">게재 매체 또는 플랫폼 · 2025.04</p>
+          </div>
+          <span class="writing-tag">에세이</span>
+        </a>
+        <a class="writing-item" href="#">
+          <div>
+            <p class="writing-title">글 제목이 들어갈 자리입니다</p>
+            <p class="writing-sub">게재 매체 또는 플랫폼 · 2025.02</p>
+          </div>
+          <span class="writing-tag">인터뷰</span>
+        </a>
+        <a class="writing-item" href="#">
+          <div>
+            <p class="writing-title">글 제목이 들어갈 자리입니다</p>
+            <p class="writing-sub">게재 매체 또는 플랫폼 · 2024.11</p>
+          </div>
+          <span class="writing-tag">리뷰</span>
+        </a>
+        <a class="writing-item" href="#">
+          <div>
+            <p class="writing-title">글 제목이 들어갈 자리입니다</p>
+            <p class="writing-sub">게재 매체 또는 플랫폼 · 2024.09</p>
+          </div>
+          <span class="writing-tag">에세이</span>
+        </a>
+        <a class="writing-item" href="#">
+          <div>
+            <p class="writing-title">글 제목이 들어갈 자리입니다</p>
+            <p class="writing-sub">게재 매체 또는 플랫폼 · 2024.06</p>
+          </div>
+          <span class="writing-tag">칼럼</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 5. 프로젝트 -->
+    <section id="projects">
+      <p class="section-label">Projects</p>
+      <h2 class="section-heading">프로젝트</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <p class="project-num">01</p>
+          <p class="project-title">프로젝트 이름이 들어갈 자리</p>
+          <p class="project-desc">프로젝트에 대한 간략한 설명이 들어갑니다. 어떤 목적으로, 어떤 방식으로 진행된 작업인지 짧게 소개해주세요.</p>
+          <div class="project-tags">
+            <span class="tag">편집</span>
+            <span class="tag">기획</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <p class="project-num">02</p>
+          <p class="project-title">프로젝트 이름이 들어갈 자리</p>
+          <p class="project-desc">프로젝트에 대한 간략한 설명이 들어갑니다. 어떤 목적으로, 어떤 방식으로 진행된 작업인지 짧게 소개해주세요.</p>
+          <div class="project-tags">
+            <span class="tag">콘텐츠</span>
+            <span class="tag">SNS</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <p class="project-num">03</p>
+          <p class="project-title">프로젝트 이름이 들어갈 자리</p>
+          <p class="project-desc">프로젝트에 대한 간략한 설명이 들어갑니다. 어떤 목적으로, 어떤 방식으로 진행된 작업인지 짧게 소개해주세요.</p>
+          <div class="project-tags">
+            <span class="tag">브랜딩</span>
+            <span class="tag">카피라이팅</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <p class="project-num">04</p>
+          <p class="project-title">프로젝트 이름이 들어갈 자리</p>
+          <p class="project-desc">프로젝트에 대한 간략한 설명이 들어갑니다. 어떤 목적으로, 어떤 방식으로 진행된 작업인지 짧게 소개해주세요.</p>
+          <div class="project-tags">
+            <span class="tag">기획</span>
+            <span class="tag">MD</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Scroll progress bar
+    const line = document.getElementById('scrollLine');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      line.style.height = (pct * 100) + 'vh';
+    });
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[data-target]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => {
+            a.classList.toggle('active', a.dataset.target === e.target.id);
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
